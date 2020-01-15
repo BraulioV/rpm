@@ -752,7 +752,7 @@ rpmRC packageBinaries(rpmSpec spec, const char *cookie, int cheating)
     #pragma omp parallel
     #pragma omp single
     for (pkg = spec->packages; pkg != NULL; pkg = pkg->next) {
-	#pragma omp task
+	#pragma omp task firstprivate(spec, pkg, cookie, cheating)
 	{
 	pkg->rc = packageBinary(spec, pkg, cookie, cheating, &pkg->filename);
 	rpmlog(RPMLOG_DEBUG,
